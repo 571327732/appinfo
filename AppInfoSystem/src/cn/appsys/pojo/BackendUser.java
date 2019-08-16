@@ -2,6 +2,11 @@ package cn.appsys.pojo;
 
 import java.util.Date;
 
+/**
+ * 管理员实体类
+ * @author 57132
+ *
+ */
 public class BackendUser {
 	private Integer id;//主键id
 	private String userCode;//用户编码（登录账号）

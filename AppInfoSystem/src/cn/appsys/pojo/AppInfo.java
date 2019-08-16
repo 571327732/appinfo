@@ -2,9 +2,10 @@ package cn.appsys.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
-/*
- * app信息实体类
+/**
+ * 
+ * @author 57132
+ *app信息实体类
  */
 public class AppInfo {
 	private Integer id;//主键id
