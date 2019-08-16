@@ -6,5 +6,6 @@ public class OtherTest {
 		System.out.println("OtherTest main()");
 		System.out.println("OtherTest.java");
 		System.out.println("测试");
+System.out.println("测试");
 	}
 }
