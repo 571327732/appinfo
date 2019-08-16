@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <settings>
+       <setting name="logImpl" value="LOG4J" /> 
+       <!--  <setting name="autoMappingBehavior" value="FULL"/> -->
+       <!--<setting name="lazyLoadingEnabled" value=""/> 懒加载 -->
+      <!-- <setting name="aggressiveLazyLoading" value="false"/>将完全加载设置成false(即懒加载) -->
+    </settings>
+    <typeAliases>
+     <package name="cn.smbms.pojo"/>
+    </typeAliases>
+</configuration>
