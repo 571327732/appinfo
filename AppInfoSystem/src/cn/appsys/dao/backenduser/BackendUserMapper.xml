@@ -3,7 +3,11 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="cn.appsys.dao.backenduser.BackendUserMapper">
- <select id="getLoginUser" resultType="cn.appsys.pojo.BackendUser">
- select * from `backend_user` where `userCode`=#{userCode}
+ <select id="getLoginUser" resultMap="loginUser">
+SELECT * FROM `backend_user` LEFT JOIN `data_dictionary` ON `backend_user`.`userType`=`data_dictionary`.`valueId` WHERE `backend_user`.`userCode`=#{userCode}
+AND `data_dictionary`.`typeCode`="USER_TYPE"
  </select>
+ <resultMap type="cn.appsys.pojo.BackendUser" id="loginUser">
+ <result column="valueName" property="userTypeName"/>
+ </resultMap>
  </mapper>

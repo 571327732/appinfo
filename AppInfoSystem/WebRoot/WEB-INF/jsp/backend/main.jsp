@@ -4,7 +4,7 @@
 <div class="page-title">
 	<div class="title_left">	
 			<h3>
-			欢迎你：${userSession.userCode }<strong> | 角色：${userSession.userName }</strong>
+			欢迎你：${userSession.userCode }<strong> | 角色：${userSession.userTypeName}</strong>
 			</h3>
 	</div>
 </div>

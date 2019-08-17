@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="cn.appsys.dao.appinfo.AppInfoMapper">
+ <select id="getAppInfoCount" resultType="int">
+ select Count(1) from `app_info` 
+<trim prefix="where" prefixOverrides="and">
+<if test="devId!=null and devId!=''">
+and `createdBy`=#{devId}
+</if>
+<if test="softwareName!=null and softwareName!=''">
+and `softwareName` like CONCAT('%',#{softwareName},'%')
+</if>
+<if test="status!=null and status!=''">
+and `status`=#{status}
+</if>
+<if test="categoryLeve1!=null and categoryLeve1!=''">
+and `categoryLeve1`=#{categoryLeve1}
+</if>
+<if test="categoryLeve2!=null and categoryLeve2!=''">
+and `categoryLeve2`=#{categoryLeve2}
+</if>
+<if test="categoryLeve3!=null and categoryLeve3!=''">
+and `categoryLeve3`=#{categoryLeve3}
+</if>
+<if test="flatfromId!=null and flatfromId!=''">
+and `flatfromId`=#{flatfromId}
+</if>
+</trim>
+ </select>
+ 
+ <select id="getAppInfoList" resultType="cn.appsys.pojo.AppInfo">
+  SELECT a.`id`,a.`softwareName`,a.`APKName`,a.`softwareSize`,a.`supportROM`,a.`downloads`,
+ a.`devId`,
+ (SELECT `devName` FROM `dev_user` WHERE `id`=a.`devId`) AS devName,
+ a.`status`,
+ (SELECT d.`valueName` FROM `data_dictionary` d  WHERE d.`valueId`=a.`status` AND d.`typeCode`="APP_STATUS") AS statusName,
+ a.`flatformId`,
+ (SELECT d.`valueName` FROM `data_dictionary` d WHERE d.`valueId`=a.`flatformId` AND d.`typeCode`="APP_FLATFORM") AS flatformName,
+ a.`categoryLevel1`,
+ (SELECT c.`categoryName` FROM `app_category` c WHERE c.`id`=a.`categoryLevel1`) AS categoryLevel1Name,
+ a.`categoryLevel2`,
+ (SELECT c.`categoryName` FROM `app_category` c WHERE c.`id`=a.`categoryLevel2`) AS categoryLevel2Name,
+  a.`categoryLevel3`,
+ (SELECT c.`categoryName` FROM `app_category` c WHERE c.`id`=a.`categoryLevel3`) AS categoryLevel3Name,
+ a.`versionId`,
+ (SELECT v.`versionNo` FROM `app_version` v WHERE v.`id`=a.`versionId`) AS versionNo
+ FROM `app_info` a
+ <trim prefix="where" prefixOverrides="and | or" suffix="limit #{currentPageNo},#{pageSize}">
+ <if test="devId!=null and devId!=''">
+ and `devId`=#{devId}
+ </if>
+  <if test="softwareName!=null and softwareName!=''">
+ and `softwareName`like CONCAT('%',#{softwareName},'%')
+ </if>
+ <if test="status!=null and status!=''">
+ and `status`=#{status}
+ </if>
+  <if test="categoryLeve1!=null and categoryLeve1!=''">
+ and `categoryLeve1`=#{categoryLeve1}
+ </if>
+ <if test="categoryLeve2!=null and categoryLeve2!=''">
+ and `categoryLeve2`=#{categoryLeve2}
+ </if>
+ <if test="categoryLeve3!=null and categoryLeve3!=''">
+ and `categoryLeve3`=#{categoryLeve3}
+ </if>
+  <if test="flatfromId!=null and flatfromId!=''">
+ and `flatfromId`=#{flatfromId}
+ </if>
+ </trim>
+ </select>
+ </mapper>
