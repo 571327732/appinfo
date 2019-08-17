@@ -29,7 +29,7 @@ public class SysInterceptor extends HandlerInterceptorAdapter {
 		}else if(null!=backendUser){//后台管理员
 			return true;
 		}else{
-			response.sendRedirect(request.getContextPath()+"403.jsp");
+			response.sendRedirect(request.getContextPath()+"/403.jsp");
 			return false;
 		}
 	}

@@ -1,11 +1,13 @@
 package cn.appsys.controller.backend;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.appsys.pojo.BackendUser;
@@ -25,10 +27,12 @@ public class BackendLoginController {
 		return "backendlogin";
 	}
 	
-	@RequestMapping(value="/dologin")
-	public String doLogin(@RequestParam("userCode")String userCode,@RequestParam("userPassword")String password,HttpSession session){
+	@RequestMapping(value="/dologin",method=RequestMethod.POST)
+	public String doLogin(@RequestParam("userCode")String userCode,@RequestParam("userPassword")String password,
+			HttpServletRequest request,HttpSession session){
 		BackendUser backendUser=backendUserService.login(userCode, password);
 		if(backendUser==null){
+			request.setAttribute(Constants.ERROR,"账号或密码不正确,请重新填写!");
 			return "backendlogin";
 		}
 		session.setAttribute(Constants.USER_SESSION, backendUser);//设置到session中 用来判断是否有权限
@@ -37,6 +41,7 @@ public class BackendLoginController {
 	//注销
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session){
-		session.removeAttribute(arg0);	
+		session.removeAttribute(Constants.USER_SESSION);
+		return "redirect:/manager/login";
 	}
 }

@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@include file="common/header.jsp" %>
 <div class="page-title">
-	<div class="title_left">
-		<h3>
+	<div class="title_left">	
 			<h3>
-			欢迎你：${userSession.userName }<strong> | 角色：${userSession.userTypeName }</strong>
+			欢迎你：${userSession.userCode }<strong> | 角色：${userSession.userName }</strong>
 			</h3>
-		</h3>
 	</div>
 </div>
 <div class="clearfix"></div>        
