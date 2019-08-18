@@ -49,4 +49,41 @@ public interface AppInfoMapper {
 			@Param("categoryLevel1")Integer categoryLevel1,@Param("categoryLevel2")Integer categoryLevel2,
 			@Param("categoryLevel3")Integer categoryLevel3,@Param("flatformId")Integer flatformId,
 			@Param("pageSize")Integer pageSieze,@Param("currentPageNo")Integer currentPageNo)throws Exception;
+	
+	
+	
+	/**
+	 * 管理员获取未审核(状态)的 app集合
+	 * @param softwareName
+	 * @param status
+	 * @param categoryLevel1
+	 * @param categoryLevel2
+	 * @param categoryLevel3
+	 * @param flatformId
+	 * @param pageSieze
+	 * @param currentPageNo
+	 * @return 未审核(状态)的 app集合
+	 * @throws Exception
+	 */
+	List<AppInfo>getAppInfolListByStatus(@Param("softwareName")String softwareName,@Param("status")Integer status,
+			@Param("categoryLevel1")Integer categoryLevel1,@Param("categoryLevel2")Integer categoryLevel2,
+			@Param("categoryLevel3")Integer categoryLevel3,@Param("flatformId")Integer flatformId,
+			@Param("pageSize")Integer pageSieze,@Param("currentPageNo")Integer currentPageNo)throws Exception;
+	
+
+	
+	/**
+	 * 管理员获取未审核(状态)的 app数量
+	 * @param softwareName
+	 * @param status
+	 * @param categoryLevel1
+	 * @param categoryLevel2
+	 * @param categoryLevel3
+	 * @param flatformId
+	 * @return 未审核(状态)的 app数量
+	 * @throws Exception
+	 */
+	int getAppInfoCountByStatus(@Param("softwareName")String softwareName,@Param("status")Integer status,
+			@Param("categoryLevel1")Integer categoryLevel1,@Param("categoryLevel2")Integer categoryLevel2,
+			@Param("categoryLevel3")Integer categoryLevel3,@Param("flatformId")Integer flatformId)throws Exception;
 }

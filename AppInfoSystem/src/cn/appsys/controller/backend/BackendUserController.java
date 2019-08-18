@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.appsys.pojo.AppInfo;
+import cn.appsys.service.backenduser.BackendUserAppService;
 import cn.appsys.service.backenduser.BackendUserService;
 
 @Controller
@@ -16,8 +17,9 @@ import cn.appsys.service.backenduser.BackendUserService;
 public class BackendUserController {
 
 	private Logger logger=Logger.getLogger(BackendUserController.class);
+
 	@Resource
-	private BackendUserService backendUserService;
+	private BackendUserAppService backendUserAppService;
 	@RequestMapping("/main.html")
 	public String main(){
 		return "/backend/main";
@@ -27,6 +29,14 @@ public class BackendUserController {
 	@RequestMapping(value="/list")
 	public String getAppInfoList(){
 		//获取未审核的app
-		return null;
+		int count=0;
+		try {
+			count = backendUserAppService.getAppInfoCountByStatus(null, 1, null, null, null, null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("app的数量为_____________________________________________________________???????"+count);
+		return "/backend/applist";
 	}
 }
