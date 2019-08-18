@@ -12,10 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.appsys.pojo.AppCategory;
 import cn.appsys.pojo.AppInfo;
+import cn.appsys.pojo.DataDictionary;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.service.devuser.AppInfoService;
+import cn.appsys.service.devuser.AppCategoryService;
+import cn.appsys.service.devuser.DataDictionaryService;
 import cn.appsys.service.devuser.DevUserService;
 import cn.appsys.tools.Constants;
 import cn.appsys.tools.PageSupport;
@@ -29,6 +34,10 @@ public class DevUserController {
 	private DevUserService devUserService;
 	@Resource
 	private AppInfoService appInfoService;
+	@Resource
+	private DataDictionaryService dataDictionaryService;
+	@Resource
+	private AppCategoryService appCategroyService;
 
 	@RequestMapping(value = "/main.html")
 	public String main() {
@@ -46,6 +55,13 @@ public class DevUserController {
 			@RequestParam(value = "queryCategoryLevel3", required = false) String categoryLevel3,
 			@RequestParam(value = "pageIndex", required = false) String pageIndex,
 			HttpSession session) {
+		logger.info("querySoftwareName>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+softwareName);
+		logger.info("queryStatus>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+status);
+		logger.info("queryFlatformId>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+flatformId);
+		logger.info("queryCategoryLevel1>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+categoryLevel1);
+		logger.info("queryCategoryLevel2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+categoryLevel2);
+		logger.info("queryCategoryLevel3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+categoryLevel3);
+		logger.info("pageIndex>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+pageIndex);
 		DevUser devUser = (DevUser) session
 				.getAttribute(Constants.DEV_USER_SESSION);// 获取当前开发者
 		Integer currentPageNo = 1;// 当前页
@@ -81,10 +97,18 @@ public class DevUserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		List<AppInfo> appInfoList = null;
+		List<AppInfo> appInfoList = null;//app信息集合
+		List<DataDictionary>statusList=null;//状态集合
+		List<DataDictionary>flatFormList=null;//平台集合
+		List<AppCategory>categoryLevel1List=null;//一级分类集合
+		List<AppCategory>categoryLevel2List=null;//二级分类集合
+		List<AppCategory>categoryLevel3List=null;//三级分类集合
 		try {
 			appInfoList = appInfoService.getAppInfoList(devUser.getId(), softwareName,
 					_status, _categoryLevel1, _categoryLevel2,_categoryLevel3,_flatformId,pageSize,currentPageNo);
+			statusList=dataDictionaryService.getDataDictionarieList("APP_STATUS");
+			flatFormList=dataDictionaryService.getDataDictionarieList("APP_FLATFORM");
+			categoryLevel1List=appCategroyService.getAppCategorieListById(null);//先获取一级分类
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -102,8 +126,55 @@ public class DevUserController {
 		pages.setCurrentPageNo(currentPageNo);
 		model.addAttribute("pages",pages);
 		model.addAttribute("appInfoList", appInfoList);
+		model.addAttribute("statusList", statusList);
+		model.addAttribute("flatFormList", flatFormList);
+		model.addAttribute("queryCategoryLevel1", categoryLevel1);
+		model.addAttribute("queryCategoryLevel2", categoryLevel2);
+		model.addAttribute("queryCategoryLevel3", categoryLevel3);
+		model.addAttribute("categoryLevel1List",categoryLevel1List);
 		model.addAttribute("querySoftwareName",softwareName);
+		model.addAttribute("queryStatus", status);
+		model.addAttribute("queryFlatformId", flatformId);
+		
+		//二级 三级列表的 回显
+		if(_categoryLevel2!=null&&!("").equals(_categoryLevel2)){//二级分类有值时
+			try {
+				categoryLevel2List=appCategroyService.getAppCategorieListById(_categoryLevel1);//拿一级的id 获取三级分类集合
+				model.addAttribute("categoryLevel2List", categoryLevel2List);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(_categoryLevel3!=null&&!("").equals(_categoryLevel3)){//三级分类有值时
+			try {
+				categoryLevel3List=appCategroyService.getAppCategorieListById(_categoryLevel2);//拿二级的id 获取三级分类集合
+				model.addAttribute("categoryLevel3List", categoryLevel3List);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return "developer/appinfolist";
+	}
+	//根据parentId获取对应的子级(重复利用一级二级三级都可获取)
+	@RequestMapping(value="/categorylevellist.json",method=RequestMethod.GET)
+	@ResponseBody
+	public List<AppCategory> getAppCategoryList(@RequestParam("pid")String pid){
+		if(("").equals(pid)){
+			pid=null;
+		}
+		return getCategoryList(pid);
+	}
+	//根据parentId获取对应的子级(重复利用一级二级三级都可获取)
+	public List<AppCategory>getCategoryList(String pid){
+		List<AppCategory>appCategoryList=null;
+		Integer parentId=Integer.valueOf(pid);
+		try {
+			 appCategoryList=appCategroyService.getAppCategorieListById(parentId);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return appCategoryList;
 	}
 	
 }

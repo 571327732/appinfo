@@ -15,17 +15,17 @@ and `softwareName` like CONCAT('%',#{softwareName},'%')
 <if test="status!=null and status!=''">
 and `status`=#{status}
 </if>
-<if test="categoryLeve1!=null and categoryLeve1!=''">
-and `categoryLeve1`=#{categoryLeve1}
+<if test="categoryLevel1!=null and categoryLevel1!=''">
+and `categoryLevel1`=#{categoryLevel1}
 </if>
-<if test="categoryLeve2!=null and categoryLeve2!=''">
-and `categoryLeve2`=#{categoryLeve2}
+<if test="categoryLevel2!=null and categoryLevel2!=''">
+and `categoryLevel2`=#{categoryLevel2}
 </if>
-<if test="categoryLeve3!=null and categoryLeve3!=''">
-and `categoryLeve3`=#{categoryLeve3}
+<if test="categoryLevel3!=null and categoryLevel3!=''">
+and `categoryLevel3`=#{categoryLevel3}
 </if>
-<if test="flatfromId!=null and flatfromId!=''">
-and `flatfromId`=#{flatfromId}
+<if test="flatformId!=null and flatformId!=''">
+and `flatformId`=#{flatformId}
 </if>
 </trim>
  </select>
@@ -57,17 +57,17 @@ and `flatfromId`=#{flatfromId}
  <if test="status!=null and status!=''">
  and `status`=#{status}
  </if>
-  <if test="categoryLeve1!=null and categoryLeve1!=''">
- and `categoryLeve1`=#{categoryLeve1}
+  <if test="categoryLevel1!=null and categoryLevel1!=''">
+ and `categoryLevel1`=#{categoryLevel1}
  </if>
- <if test="categoryLeve2!=null and categoryLeve2!=''">
- and `categoryLeve2`=#{categoryLeve2}
+ <if test="categoryLevel2!=null and categoryLevel2!=''">
+ and `categoryLevel2`=#{categoryLevel2}
  </if>
- <if test="categoryLeve3!=null and categoryLeve3!=''">
- and `categoryLeve3`=#{categoryLeve3}
+ <if test="categoryLevel3!=null and categoryLevel3!=''">
+ and `categoryLevel3`=#{categoryLevel3}
  </if>
-  <if test="flatfromId!=null and flatfromId!=''">
- and `flatfromId`=#{flatfromId}
+  <if test="flatformId!=null and flatformId!=''">
+ and `flatformId`=#{flatformId}
  </if>
  </trim>
  </select>

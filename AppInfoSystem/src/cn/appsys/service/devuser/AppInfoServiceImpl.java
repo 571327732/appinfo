@@ -26,10 +26,10 @@ public class AppInfoServiceImpl implements AppInfoService {
 
 	@Override
 	public List<AppInfo> getAppInfoList(Integer id, String softwareName,
-			Integer status, Integer categoryLeve1, Integer categoryLeve2,
-			Integer categoryLeve3, Integer flatfromId, Integer pageSieze,
+			Integer status, Integer categoryLevel1, Integer categoryLevel2,
+			Integer categoryLevel3, Integer flatformId, Integer pageSieze,
 			Integer currentPageNo) throws Exception {
-		return  appInfoMapper.getAppInfoList(id, softwareName, status, categoryLeve1, categoryLeve2, categoryLeve3, flatfromId, pageSieze, (currentPageNo-1)*pageSieze);
+		return  appInfoMapper.getAppInfoList(id, softwareName, status, categoryLevel1, categoryLevel2, categoryLevel3, flatformId, pageSieze, (currentPageNo-1)*pageSieze);
 	}
 
 

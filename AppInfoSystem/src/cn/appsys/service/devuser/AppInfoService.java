@@ -27,8 +27,8 @@ public interface AppInfoService {
 	 * @return app数量
 	 */
 	int getAppInfoCount(Integer id, String softwareName, Integer status,
-			Integer categoryLeve1, Integer categoryLeve2,
-			Integer categoryLeve3, Integer flatfromId)throws Exception;
+			Integer categoryLevel1, Integer categoryLevel2,
+			Integer categoryLevel3, Integer flatformId)throws Exception;
 
 	/**
 	 * 根据条件获取app列表集合
@@ -45,7 +45,7 @@ public interface AppInfoService {
 	 * @throws Exception
 	 */
 	List<AppInfo> getAppInfoList(Integer id, String softwareName,
-			Integer status, Integer categoryLeve1, Integer categoryLeve2,
-			Integer categoryLeve3, Integer flatfromId, Integer pageSieze,
+			Integer status, Integer categoryLevel1, Integer categoryLevel2,
+			Integer categoryLevel3, Integer flatformId, Integer pageSieze,
 			Integer currentPageNo) throws Exception;
 }
