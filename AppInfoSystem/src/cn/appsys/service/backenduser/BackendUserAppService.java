@@ -16,14 +16,14 @@ public interface BackendUserAppService {
 	 * @param categoryLevel2
 	 * @param categoryLevel3
 	 * @param flatformId
-	 * @param pageSieze
+	 * @param pageSize
 	 * @param currentPageNo
 	 * @return 未审核(状态)的 app集合
 	 * @throws Exception
 	 */
 	List<AppInfo> getAppInfolListByStatus(String softwareName, Integer status,
 			Integer categoryLevel1, Integer categoryLevel2,
-			Integer categoryLevel3, Integer flatformId, Integer pageSieze,
+			Integer categoryLevel3, Integer flatformId, Integer pageSize,
 			Integer currentPageNo) throws Exception;
 
 	/**

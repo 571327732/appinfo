@@ -18,10 +18,10 @@ public class BackendUserAppServiceImpl implements BackendUserAppService {
 	@Override
 	public List<AppInfo> getAppInfolListByStatus(String softwareName,
 			Integer status, Integer categoryLevel1, Integer categoryLevel2,
-			Integer categoryLevel3, Integer flatformId, Integer pageSieze,
+			Integer categoryLevel3, Integer flatformId, Integer pageSize,
 			Integer currentPageNo) throws Exception {
 		// TODO Auto-generated method stub
-		return appInfoMapper.getAppInfolListByStatus(softwareName, status, categoryLevel1, categoryLevel2, categoryLevel3, flatformId, pageSieze, currentPageNo);
+		return appInfoMapper.getAppInfolListByStatus(softwareName, status, categoryLevel1, categoryLevel2, categoryLevel3, flatformId, pageSize, (currentPageNo-1)*pageSize);
 	}
 
 	@Override

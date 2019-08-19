@@ -137,15 +137,15 @@ public class DevUserController {
 		model.addAttribute("queryFlatformId", flatformId);
 		
 		//二级 三级列表的 回显
-		if(_categoryLevel2!=null&&!("").equals(_categoryLevel2)){//二级分类有值时
+		if(_categoryLevel1!=null&&!("").equals(_categoryLevel1)){//一级分类有值时
 			try {
-				categoryLevel2List=appCategroyService.getAppCategorieListById(_categoryLevel1);//拿一级的id 获取三级分类集合
+				categoryLevel2List=appCategroyService.getAppCategorieListById(_categoryLevel1);//拿一级的id 获取二级分类集合
 				model.addAttribute("categoryLevel2List", categoryLevel2List);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		if(_categoryLevel3!=null&&!("").equals(_categoryLevel3)){//三级分类有值时
+		if(_categoryLevel2!=null&&!("").equals(_categoryLevel2)){//二级分类有值时
 			try {
 				categoryLevel3List=appCategroyService.getAppCategorieListById(_categoryLevel2);//拿二级的id 获取三级分类集合
 				model.addAttribute("categoryLevel3List", categoryLevel3List);

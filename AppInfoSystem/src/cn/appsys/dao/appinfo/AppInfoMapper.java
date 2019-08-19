@@ -60,7 +60,7 @@ public interface AppInfoMapper {
 	 * @param categoryLevel2
 	 * @param categoryLevel3
 	 * @param flatformId
-	 * @param pageSieze
+	 * @param pageSize
 	 * @param currentPageNo
 	 * @return 未审核(状态)的 app集合
 	 * @throws Exception
@@ -68,7 +68,7 @@ public interface AppInfoMapper {
 	List<AppInfo>getAppInfolListByStatus(@Param("softwareName")String softwareName,@Param("status")Integer status,
 			@Param("categoryLevel1")Integer categoryLevel1,@Param("categoryLevel2")Integer categoryLevel2,
 			@Param("categoryLevel3")Integer categoryLevel3,@Param("flatformId")Integer flatformId,
-			@Param("pageSize")Integer pageSieze,@Param("currentPageNo")Integer currentPageNo)throws Exception;
+			@Param("pageSize")Integer pageSize,@Param("currentPageNo")Integer currentPageNo)throws Exception;
 	
 
 	
