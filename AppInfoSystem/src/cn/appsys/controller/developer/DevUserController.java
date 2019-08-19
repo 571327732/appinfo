@@ -1,6 +1,8 @@
 package cn.appsys.controller.developer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import cn.appsys.pojo.AppCategory;
 import cn.appsys.pojo.AppInfo;
@@ -167,7 +171,10 @@ public class DevUserController {
 	//根据parentId获取对应的子级(重复利用一级二级三级都可获取)
 	public List<AppCategory>getCategoryList(String pid){
 		List<AppCategory>appCategoryList=null;
-		Integer parentId=Integer.valueOf(pid);
+		Integer parentId=null;
+		if(pid!=null){
+			parentId=Integer.valueOf(pid);
+		}
 		try {
 			 appCategoryList=appCategroyService.getAppCategorieListById(parentId);
 		} catch (Exception e) {
@@ -176,5 +183,51 @@ public class DevUserController {
 		}
 		return appCategoryList;
 	}
-	
+	//添加新的app页面
+	@RequestMapping(value="/appinfoadd")
+	public String addAppInfo(@ModelAttribute AppInfo appInfo){
+		return "/developer/appinfoadd";
+	}
+	//保存新的app信息
+	@RequestMapping("/appinfoaddsave")
+	public String saveAppInfo(AppInfo appInfo,MultipartFile file){
+		//需获取创建者id 创建日期  文件路径在项目中的位置  和保存到服务器上的文件路径
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++"+appInfo.getAPKName());
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++"+appInfo.getLogoLocPath()+"   "+appInfo.getLogoPicPath());
+		return "redirect:/sys/dev/list";
+	}
+	//获取平台
+	@RequestMapping("/datadictionarylist.json")
+	@ResponseBody
+	public List<DataDictionary> getDataDictionaryList(@RequestParam("tcode")String typeCode){
+		List<DataDictionary> dataDictionaryList=null;
+		try {
+			dataDictionaryList= dataDictionaryService.getDataDictionarieList(typeCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dataDictionaryList;
+	}
+	//校验Apk名称(必须唯一)
+	@RequestMapping(value="/apkexist.json")
+	@ResponseBody
+	public Map<String,Object> getApkNameIsExist(@RequestParam("APKName")String apkName){
+		Map<String, Object>map=new HashMap<String,Object>();
+		AppInfo appInfo=null;
+		if(apkName==null ||("").equals(apkName)){
+			map.put("APKName","empty");
+		}else{
+			try {
+				appInfo=appInfoService.getAppInfoByApkName(apkName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(appInfo!=null){
+				map.put("APKName","exist");
+			}else{
+				map.put("APKName", "noexist");
+			}
+		}
+		return map;
+	}
 }

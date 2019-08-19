@@ -86,4 +86,11 @@ public interface AppInfoMapper {
 	int getAppInfoCountByStatus(@Param("softwareName")String softwareName,@Param("status")Integer status,
 			@Param("categoryLevel1")Integer categoryLevel1,@Param("categoryLevel2")Integer categoryLevel2,
 			@Param("categoryLevel3")Integer categoryLevel3,@Param("flatformId")Integer flatformId)throws Exception;
+	/**
+	 * 根据apkName获取appInfo
+	 * @param apkName
+	 * @return appInfo
+	 * @throws Exception
+	 */
+	AppInfo getAppInfoByApkName(@Param("APKName")String apkName)throws Exception;
 }

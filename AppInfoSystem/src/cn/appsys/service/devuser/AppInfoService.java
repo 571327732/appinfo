@@ -5,7 +5,6 @@ package cn.appsys.service.devuser;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 
 import cn.appsys.pojo.AppInfo;
 
@@ -48,4 +47,12 @@ public interface AppInfoService {
 			Integer status, Integer categoryLevel1, Integer categoryLevel2,
 			Integer categoryLevel3, Integer flatformId, Integer pageSieze,
 			Integer currentPageNo) throws Exception;
+	
+	/**
+	 * 根据apkName获取appInfo
+	 * @param apkName
+	 * @return appInfo
+	 * @throws Exception
+	 */
+	AppInfo getAppInfoByApkName(String apkName)throws Exception;
 }

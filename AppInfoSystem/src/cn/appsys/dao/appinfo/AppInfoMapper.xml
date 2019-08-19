@@ -135,4 +135,7 @@ and `flatformId`=#{flatformId}
  </trim>
  </select>
  
+ <select id="getAppInfoByApkName" resultType="cn.appsys.pojo.AppInfo">
+ SELECT * FROM `app_info` WHERE `APKName`=#{APKName}
+ </select>
  </mapper>

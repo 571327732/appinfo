@@ -46,5 +46,12 @@ public class AppInfoServiceImpl implements AppInfoService {
 		}
 		return count;
 	}
+
+
+
+	@Override
+	public AppInfo getAppInfoByApkName(String apkName) throws Exception {
+		return appInfoMapper.getAppInfoByApkName(apkName);
+	}
 	
 }
