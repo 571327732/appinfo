@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.appsys.controller.basecontroller.BaseController;
 import cn.appsys.pojo.BackendUser;
 import cn.appsys.service.backenduser.BackendUserService;
 import cn.appsys.tools.Constants;
 
 @Controller
 @RequestMapping("/manager")
-public class BackendLoginController {
+public class BackendLoginController{
 
 	private Logger logger=Logger.getLogger(BackendUserController.class);
 	@Resource

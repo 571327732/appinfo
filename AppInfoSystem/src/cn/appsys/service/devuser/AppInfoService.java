@@ -5,6 +5,8 @@ package cn.appsys.service.devuser;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 
 import cn.appsys.pojo.AppInfo;
 
@@ -55,4 +57,36 @@ public interface AppInfoService {
 	 * @throws Exception
 	 */
 	AppInfo getAppInfoByApkName(String apkName)throws Exception;
+	
+	/**
+	 * 添加appInfo
+	 * @param appInfo
+	 * @return 是否添加成功
+	 * @throws Exception
+	 */
+	boolean addAppInfo(AppInfo appInfo)throws Exception;
+	
+	/**
+	 * 根据id查找appInfo
+	 * @param id
+	 * @return appInfo
+	 * @throws Exception
+	 */
+	AppInfo getAppInfoById(@Param("id")Integer id)throws Exception;
+	
+	/**
+	 * 更改appInfo
+	 * @param appInfo
+	 * @return 是否删除成功
+	 * @throws Exception
+	 */
+	boolean updateAppInfo(AppInfo appInfo)throws Exception;
+	
+	/**
+	 * 根据id删除logo图片路径
+	 * @param id
+	 * @return 是否删除成功
+	 * @throws Exception
+	 */
+	boolean delLogoPicById(Integer id)throws Exception;
 }

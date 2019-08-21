@@ -53,5 +53,45 @@ public class AppInfoServiceImpl implements AppInfoService {
 	public AppInfo getAppInfoByApkName(String apkName) throws Exception {
 		return appInfoMapper.getAppInfoByApkName(apkName);
 	}
+
+
+
+	@Override
+	public boolean addAppInfo(AppInfo appInfo) throws Exception {
+		boolean flag=false;
+		if(appInfoMapper.addAppInfo(appInfo)>0){
+			flag=true;
+		}
+		return flag;
+	}
+
+
+
+	@Override
+	public AppInfo getAppInfoById(Integer id) throws Exception {
+		return appInfoMapper.getAppInfoById(id);
+	}
+
+
+
+	@Override
+	public boolean updateAppInfo(AppInfo appInfo) throws Exception {
+		boolean flag=false;
+		if(appInfoMapper.updateAppInfo(appInfo)>0){
+			flag=true;
+		}
+		return flag;
+	}
+
+
+
+	@Override
+	public boolean delLogoPicById(Integer id) throws Exception {
+		boolean flag=false;
+		if(appInfoMapper.delLogoPicById(id)>0){
+			flag=true;
+		}
+		return flag;
+	}
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.appsys.controller.basecontroller.BaseController;
 import cn.appsys.pojo.AppCategory;
 import cn.appsys.pojo.AppInfo;
 import cn.appsys.pojo.DataDictionary;
@@ -22,7 +23,7 @@ import cn.appsys.tools.PageSupport;
 
 @Controller
 @RequestMapping("/sys/user")
-public class BackendUserController {
+public class BackendUserController{
 
 	private Logger logger = Logger.getLogger(BackendUserController.class);
 

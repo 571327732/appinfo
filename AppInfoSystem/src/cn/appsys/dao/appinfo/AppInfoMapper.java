@@ -93,4 +93,37 @@ public interface AppInfoMapper {
 	 * @throws Exception
 	 */
 	AppInfo getAppInfoByApkName(@Param("APKName")String apkName)throws Exception;
+	
+	/**
+	 * 添加appInfo
+	 * @param appInfo
+	 * @return 影响行数
+	 * @throws Exception
+	 */
+	int addAppInfo(AppInfo appInfo)throws Exception;
+	
+	/**
+	 * 根据id查找appInfo
+	 * @param id
+	 * @return appInfo
+	 * @throws Exception
+	 */
+	AppInfo getAppInfoById(@Param("id")Integer id)throws Exception;
+	
+	/**
+	 * 更改appInfo
+	 * @param appInfo
+	 * @return 影响行数
+	 * @throws Exception
+	 */
+	int updateAppInfo(AppInfo appInfo)throws Exception;
+	
+	/**
+	 * 根据id删除logo图片路径
+	 * @param id
+	 * @return 影响行数
+	 * @throws Exception
+	 */
+	int delLogoPicById(@Param("id")Integer id)throws Exception;
+	
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="cn.appsys.dao.appversion.AppVersionMapper">
+ 
+ <select id="getAppVersionByVId" resultType="cn.appsys.pojo.AppVersion">
+ SELECT v.*,(SELECT a.`softwareName` FROM `app_info` a WHERE `id`=v.`appId`) AS appName 
+,(SELECT `valueName` FROM `data_dictionary`  WHERE `typeCode`="PUBLISH_STATUS" AND v.`publishStatus`=`valueId`) AS publishStatusName
+FROM `app_version` v
+<trim prefix="where" prefixOverrides="and|or">
+<if test="appId!=null">
+and `appId`=#{appId}
+</if>
+</trim>
+ </select>
+ 
+ </mapper>

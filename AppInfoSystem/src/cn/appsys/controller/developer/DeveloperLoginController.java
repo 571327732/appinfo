@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.appsys.controller.basecontroller.BaseController;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.service.devuser.DevUserService;
 import cn.appsys.tools.Constants;
 
 @Controller
 @RequestMapping("/dev")
-public class DeveloperLoginController {
+public class DeveloperLoginController{
 
 	@Resource
 	private DevUserService devUserService;
