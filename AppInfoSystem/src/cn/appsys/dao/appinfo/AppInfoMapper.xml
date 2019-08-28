@@ -205,6 +205,7 @@ ORDER BY `creationDate` DESC limit #{currentPageNo},#{pageSize}
  <if test="logoLocPath!=null and logoLocPath!=''">
  `logoLocPath`=#{logoLocPath},
  </if>
+<if test="status != null">`status`=#{status},</if>
  </trim>
  </update>
  
@@ -214,5 +215,20 @@ update `app_info` set `logoPicPath`=null,
 where `id`=#{id}
 </update>
 
-<select id=""></select>
+<update id="updateVesionId">
+update `app_info`
+<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+<if test=" versionId !=null and versionId!=''">
+`versionId`=#{versionId}
+</if>
+</trim>
+</update>
+
+<delete id="delAppInfoById">
+ delete from `app_info` where  `id`=#{id}
+ </delete>
+ 
+ <update id="updateAppInfoStatus">
+update `app_info` set `status`=#{status} where `id` = #{id}
+	</update>
  </mapper>

@@ -31,6 +31,16 @@ public class BackendUserAppServiceImpl implements BackendUserAppService {
 		// TODO Auto-generated method stub
 		return appInfoMapper.getAppInfoCountByStatus(softwareName, status, categoryLevel1, categoryLevel2, categoryLevel3, flatformId);
 	}
+
+	@Override
+	public boolean updateAppInfoStatus(Integer status, Integer id)
+			throws Exception {
+		boolean flag=false;
+		if(appInfoMapper.updateAppInfoStatus(status, id)>0){
+			flag=true;
+		}
+		return flag;
+	}
 	
 
 }

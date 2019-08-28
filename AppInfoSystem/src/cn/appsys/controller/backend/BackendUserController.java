@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.appsys.controller.basecontroller.BaseController;
 import cn.appsys.pojo.AppCategory;
 import cn.appsys.pojo.AppInfo;
+import cn.appsys.pojo.AppVersion;
 import cn.appsys.pojo.DataDictionary;
 import cn.appsys.service.backenduser.BackendUserAppService;
 import cn.appsys.service.devuser.AppCategoryService;
+import cn.appsys.service.devuser.AppInfoService;
+import cn.appsys.service.devuser.AppVersionService;
 import cn.appsys.service.devuser.DataDictionaryService;
 import cn.appsys.tools.Constants;
 import cn.appsys.tools.PageSupport;
@@ -33,6 +37,10 @@ public class BackendUserController{
     private DataDictionaryService dataDictionaryService;
 	@Resource
 	private AppCategoryService appCategoryService;
+	@Resource
+	private AppInfoService appInfoService;
+	@Resource
+	private AppVersionService appVersionService;
 	@RequestMapping("/main.html")
 	public String main() {
 		return "/backend/main";
@@ -158,5 +166,45 @@ public class BackendUserController{
 			e.printStackTrace();
 		}
 		return appCategoryList;
+	}
+	
+	//审核页面跳转
+	@RequestMapping(value="/check")
+	public String appCheck(@RequestParam(value="aid")String aid,@RequestParam(value="vid")String vid,Model model){
+		AppInfo appInfo = null;
+		AppVersion appVersion = null;
+		Integer aId=null;
+		Integer vId=null;
+		if(aid!=null&&!("").equals(aid)){
+			aId=Integer.valueOf(aid);
+		}
+		if(vid!=null&&!("").equals(vid)){
+			vId=Integer.valueOf(vid);
+		}
+		//查询是不是最新版本
+		try {
+			appInfo=appInfoService.getAppInfoById(aId);
+			appVersion=appVersionService.getAppVersionById(vId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("appInfo",appInfo);
+		model.addAttribute("appVersion",appVersion);
+		return "/backend/appcheck";
+	}
+	
+	//审核结果保存
+	@RequestMapping(value="/checksave")
+	public String checkSave(AppInfo appInfo){
+		try {
+			if(backendUserAppService.updateAppInfoStatus(appInfo.getStatus(),appInfo.getId())){
+				return "redirect://sys/user/list";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "backend/appcheck";
 	}
 }

@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="cn.appsys.dao.appversion.AppVersionMapper">
  
- <select id="getAppVersionByVId" resultType="cn.appsys.pojo.AppVersion">
+ <select id="getAppVersionByAId" resultType="cn.appsys.pojo.AppVersion">
  SELECT v.*,(SELECT a.`softwareName` FROM `app_info` a WHERE `id`=v.`appId`) AS appName 
 ,(SELECT `valueName` FROM `data_dictionary`  WHERE `typeCode`="PUBLISH_STATUS" AND v.`publishStatus`=`valueId`) AS publishStatusName
 FROM `app_version` v
@@ -15,4 +15,43 @@ and `appId`=#{appId}
 </trim>
  </select>
  
+ <insert id="addAppVersion" useGeneratedKeys="true" keyProperty="id">
+ INSERT INTO `app_version` (`appId`,`versionNo`,`versionInfo`,`publishStatus`,`downloadLink`,`versionSize`,`createdBy`,`creationDate`,`apkLocPath`,`apkFileName`) 
+ VALUES(#{appId},#{versionNo},#{versionInfo},#{publishStatus},#{downloadLink},#{versionSize},#{createdBy},#{creationDate},#{apkLocPath},#{apkFileName}) 
+ </insert>
+ 
+ <select id="getAppVersionById" resultType="cn.appsys.pojo.AppVersion">
+ select * from `app_version`
+ <trim prefix="where" prefixOverrides="and|or">
+ <if test="id!=null and id!=''">
+ and `id`=#{id}
+ </if>
+ </trim>
+ </select>
+ 
+<select id="getAppVersionCountByAppId" resultType="int">
+select count(1) from `app_version` where `appId`=#{appId}
+</select>
+ <delete id="delAppVersionByAppId">
+ delete from `app_version` where `appId`=#{appId}	
+ </delete>
+ 
+ <update id="deleteApkFile">
+update app_version set `apkLocPath`=null,`downloadLink`=null,`apkFileName`=null where id = #{id}
+</update>
+	
+<update id="modify">
+update app_version
+<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+<if test="versionNo != null">versionNo=#{versionNo},</if>
+<if test="versionInfo != null">versionInfo=#{versionInfo},</if>
+<if test="publishStatus != null">publishStatus=#{publishStatus},</if>
+<if test="downloadLink != null">downloadLink=#{downloadLink},</if>
+<if test="apkLocPath != null">apkLocPath=#{apkLocPath},</if>
+<if test="versionSize != null">versionSize=#{versionSize},</if>
+<if test="apkFileName != null">apkFileName=#{apkFileName},</if>
+<if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+<if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+</trim>
+</update>
  </mapper>

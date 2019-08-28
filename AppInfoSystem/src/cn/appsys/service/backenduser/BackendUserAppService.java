@@ -2,6 +2,8 @@ package cn.appsys.service.backenduser;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 
 import cn.appsys.pojo.AppInfo;
 
@@ -41,4 +43,13 @@ public interface BackendUserAppService {
 	int getAppInfoCountByStatus(String softwareName, Integer status,
 			Integer categoryLevel1, Integer categoryLevel2,
 			Integer categoryLevel3, Integer flatformId) throws Exception;
+	
+	/**
+	 * 审核 app 更改app状态
+	 * @param status
+	 * @param id
+	 * @return 是否更改成功
+	 * @throws Exception
+	 */
+	boolean updateAppInfoStatus(Integer status,Integer id)throws Exception;
 }

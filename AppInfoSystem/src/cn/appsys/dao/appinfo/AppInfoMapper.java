@@ -126,4 +126,30 @@ public interface AppInfoMapper {
 	 */
 	int delLogoPicById(@Param("id")Integer id)throws Exception;
 	
+	/**
+	 * 更新app的最新版本号
+	 * @param versionId
+	 * @param appId
+	 * @return 影响行数
+	 */
+	int updateVesionId(@Param("versionId")Integer versionId,@Param("id")Integer appId)throws Exception;
+	
+	/**
+	 * 根据id删除 appInfo
+	 * @param id
+	 * @return 影响行数
+	 * @throws Exception
+	 */
+	int delAppInfoById(@Param("id")Integer id)throws Exception;
+	
+	/**
+	 * 审核 app 更改app状态
+	 * @param status
+	 * @param id
+	 * @return 影响行数
+	 * @throws Exception
+	 */
+	int updateAppInfoStatus(@Param("status")Integer status,@Param("id")Integer id)throws Exception;
+	
+	
 }
